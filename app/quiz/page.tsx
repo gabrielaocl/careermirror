@@ -2,127 +2,88 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { saveQuizAnswers, type QuizAnswers } from "@/lib/career-storage";
+import { saveQuizAnswers } from "@/lib/career-storage";
 
-const initialForm: QuizAnswers = {
-  currentRole: "",
-  energizingWork: "",
-  drainingWork: "",
-  workStyle: "",
-  salaryGoal: "",
-  timeline: "",
-  industries: "",
-  skills: "",
-  values: "",
-  targetRoles: "",
-};
+const questions = [
+  { key: "currentRole", label: "What is your current role or background?" },
+  { key: "energizingWork", label: "What type of work energizes you?" },
+  { key: "drainingWork", label: "What type of work drains you?" },
+  { key: "workStyle", label: "What work style fits you best? (analytical, creative, technical, people-facing)" },
+  { key: "salaryGoal", label: "What is your salary goal?" },
+  { key: "timeline", label: "How soon do you want to pivot?" },
+  { key: "industries", label: "What industries interest you?" },
+  { key: "skills", label: "What skills do you already have?" },
+  { key: "values", label: "What matters most: money, flexibility, mission, growth?" },
+  { key: "targetRoles", label: "What roles are you curious about?" },
+];
 
 export default function QuizPage() {
   const router = useRouter();
-  const [form, setForm] = useState(initialForm);
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
 
-  function updateField(field: keyof QuizAnswers, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const current = questions[step];
+  const progress = ((step + 1) / questions.length) * 100;
+
+  function update(value: string) {
+    setAnswers({ ...answers, [current.key]: value });
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    saveQuizAnswers(form);
-    router.push("/resume");
+  function next() {
+    if (step < questions.length - 1) {
+      setStep(step + 1);
+    } else {
+      saveQuizAnswers(answers as any);
+      router.push("/resume");
+    }
+  }
+
+  function back() {
+    if (step > 0) setStep(step - 1);
   }
 
   return (
-    <main className="min-h-screen bg-[#f6fbf7] px-6 py-10">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="text-4xl font-bold text-slate-900">Career Mirror Quiz</h1>
-        <p className="mt-3 text-slate-600">
-          Answer a few questions so we can build a realistic career pivot roadmap.
+    <main className="min-h-screen bg-[#f6fbf7] flex items-center justify-center px-6">
+      <div className="w-full max-w-2xl rounded-3xl bg-white p-8 shadow-sm">
+        <div className="mb-6 h-2 w-full rounded-full bg-slate-100">
+          <div
+            className="h-2 rounded-full bg-emerald-500 transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <p className="text-sm text-slate-500">
+          Step {step + 1} of {questions.length}
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5 rounded-3xl bg-white p-6 shadow-sm">
-          <Input label="Current role or background" value={form.currentRole} onChange={(v) => updateField("currentRole", v)} />
-          <Textarea label="What type of work energizes you?" value={form.energizingWork} onChange={(v) => updateField("energizingWork", v)} />
-          <Textarea label="What type of work drains you?" value={form.drainingWork} onChange={(v) => updateField("drainingWork", v)} />
+        <h1 className="mt-3 text-3xl font-bold text-slate-900">
+          {current.label}
+        </h1>
 
-          <Select
-            label="Preferred work style"
-            value={form.workStyle}
-            onChange={(v) => updateField("workStyle", v)}
-            options={["Analytical", "Creative", "People-facing", "Operational", "Technical", "Strategic"]}
-          />
+        <textarea
+          value={answers[current.key] || ""}
+          onChange={(e) => update(e.target.value)}
+          className="mt-6 min-h-32 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-500"
+          placeholder="Type your answer..."
+        />
 
-          <Input label="Salary goal" value={form.salaryGoal} onChange={(v) => updateField("salaryGoal", v)} />
-          <Select
-            label="Target timeline"
-            value={form.timeline}
-            onChange={(v) => updateField("timeline", v)}
-            options={["30 days", "90 days", "6 months", "1 year"]}
-          />
-
-          <Textarea label="Industries you are interested in" value={form.industries} onChange={(v) => updateField("industries", v)} />
-          <Textarea label="Skills you already have" value={form.skills} onChange={(v) => updateField("skills", v)} />
-          <Textarea label="Values that matter to you" value={form.values} onChange={(v) => updateField("values", v)} />
-          <Textarea label="Roles you are curious about" value={form.targetRoles} onChange={(v) => updateField("targetRoles", v)} />
-
-          <button className="w-full rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700">
-            Continue to Resume
+        <div className="mt-8 flex justify-between">
+          <button
+            onClick={back}
+            disabled={step === 0}
+            className="rounded-full px-5 py-3 text-slate-600 disabled:opacity-40"
+          >
+            Back
           </button>
-        </form>
+
+          <button
+            onClick={next}
+            className="rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700"
+          >
+            {step === questions.length - 1 ? "Continue" : "Next"}
+          </button>
+        </div>
       </div>
     </main>
-  );
-}
-
-function Input({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
-  return (
-    <label className="block">
-      <span className="font-medium text-slate-800">{label}</span>
-      <input
-        className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-500"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </label>
-  );
-}
-
-function Textarea({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
-  return (
-    <label className="block">
-      <span className="font-medium text-slate-800">{label}</span>
-      <textarea
-        className="mt-2 min-h-24 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-500"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </label>
-  );
-}
-
-function Select({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: string[];
-}) {
-  return (
-    <label className="block">
-      <span className="font-medium text-slate-800">{label}</span>
-      <select
-        className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-500"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <option value="">Select one</option>
-        {options.map((option) => (
-          <option key={option}>{option}</option>
-        ))}
-      </select>
-    </label>
   );
 }
