@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, Sparkles, TrendingUp, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import DemoCarousel from '@/components/demo-carousel'
 
 export default function Home() {
   return (
@@ -145,14 +146,14 @@ export default function Home() {
               <h2 className="text-4xl font-bold">Why Choose CareerMirror?</h2>
               <div className="space-y-6">
                 {[
-                  { title: "Smart Matching", desc: "AI-powered matching of your skills with in-demand careers" },
-                  { title: "Actionable Roadmap", desc: "Clear steps and timeline to achieve your career transition" },
-                  { title: "Expert Resources", desc: "Curated learning paths and mentorship opportunities" },
-                  { title: "Community Support", desc: "Connect with others on similar career journeys" }
+                  { title: "AI-Powered Career Intelligence", desc: "Discover opportunities perfectly aligned with your unique strengths and passion" },
+                  { title: "Your Step-by-Step Blueprint", desc: "Clear milestones from where you are to where you want to be—no guesswork" },
+                  { title: "Accelerated Learning Paths", desc: "Curated resources and skills from industry leaders to fast-track your growth" },
+                  { title: "Your Support Network", desc: "Connect with mentors and peers navigating similar transformative career moves" }
                 ].map((benefit, idx) => (
                   <div key={idx} className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Zap className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                      <Zap className="w-6 h-6 text-emerald-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-foreground">{benefit.title}</h3>
@@ -162,15 +163,8 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 border border-primary/20 h-40 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary rounded-lg mx-auto mb-3" />
-                    <p className="text-sm font-semibold text-foreground">Feature {i}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center justify-center">
+              <DemoCarousel />
             </div>
           </div>
         </div>
