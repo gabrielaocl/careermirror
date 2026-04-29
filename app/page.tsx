@@ -29,7 +29,7 @@ export default function Home() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <div className="inline-block bg-secondary px-4 py-2 rounded-full border border-primary/20">
-                  <span className="text-sm font-semibold text-primary">✨ Transform Your Career</span>
+                  <span className="text-sm font-semibold text-primary"> Ready to Tansform Your Career?</span>
                 </div>
                 <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                   Explore Your <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Perfect Career Pivot</span>
