@@ -54,7 +54,11 @@ export default function ResumePage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    saveResumeInput(form);
+    try {
+      saveResumeInput(form);
+    } catch (error) {
+      console.error("Error saving resume:", error);
+    }
     router.push("/roadmap");
   }
 

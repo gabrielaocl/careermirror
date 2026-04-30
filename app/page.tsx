@@ -6,22 +6,6 @@ import DemoCarousel from '@/components/demo-carousel'
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <h1 className="text-xl font-bold text-primary">CareerMirror</h1>
-          </div>
-          <div className="hidden md:flex gap-8">
-            <a href="#features" className="text-foreground/70 hover:text-primary transition">Features</a>
-            <a href="#how-it-works" className="text-foreground/70 hover:text-primary transition">How It Works</a>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
@@ -68,25 +52,83 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Illustration */}
-            <div className="relative h-96 md:h-full min-h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl border border-primary/20 flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="space-y-4 text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-2xl mx-auto flex items-center justify-center">
-                    <TrendingUp className="w-12 h-12 text-white" />
+            {/* Right Illustration - Dashboard Preview */}
+            <div className="relative h-96 md:h-full min-h-96 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border border-emerald-200 shadow-2xl overflow-hidden p-5">
+              {/* Decorative blur elements */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-200 rounded-full blur-3xl opacity-20" />
+              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-green-200 rounded-full blur-3xl opacity-20" />
+
+              <div className="relative z-10 space-y-4 h-full flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-300">
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold text-emerald-600 uppercase">Welcome back</p>
+                    <p className="text-sm font-bold text-slate-900">Your Dashboard</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-primary">Your Career Journey Starts Here</h3>
+                  <div className="w-8 h-8 bg-emerald-600 rounded-full" />
                 </div>
-              </div>
-              
-              {/* Floating Cards */}
-              <div className="absolute top-12 -left-6 bg-white rounded-xl p-4 shadow-lg border border-border rotate-12 w-32">
-                <p className="text-sm font-semibold text-foreground">Personalized</p>
-                <p className="text-xs text-foreground/60">Tailored for you</p>
-              </div>
-              <div className="absolute bottom-12 -right-6 bg-white rounded-xl p-4 shadow-lg border border-border -rotate-12 w-32">
-                <p className="text-sm font-semibold text-foreground">Data-Driven</p>
-                <p className="text-xs text-foreground/60">Smart insights</p>
+
+                {/* Progress Summary */}
+                <div className="bg-white rounded-xl p-3 border border-emerald-100 shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs font-semibold text-slate-900">Overall Progress</p>
+                    <span className="text-xs font-bold text-emerald-600">64%</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full w-[64%] bg-gradient-to-r from-emerald-500 to-green-500 rounded-full" />
+                  </div>
+                </div>
+
+                {/* Cards Grid */}
+                <div className="grid grid-cols-2 gap-2 flex-1">
+                  {/* Quiz Card */}
+                  <div className="bg-gradient-to-br from-green-600 to-green-280 rounded-lg p-3 text-white shadow-md hover:shadow-lg transition transform hover:scale-105">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg" />
+                      <span className="text-xs bg-white/30 px-2 py-1 rounded-full">✓</span>
+                    </div>
+                    <p className="text-xs font-bold">Career Quiz</p>
+                    <p className="text-xs opacity-90">10 questions</p>
+                  </div>
+
+                  {/* Resume Card */}
+                  <div className="bg-gradient-to-br from-green-600 to-green-280 rounded-lg p-3 text-white shadow-md hover:shadow-lg transition transform hover:scale-105">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg" />
+                      <span className="text-xs bg-white/30 px-2 py-1 rounded-full">78%</span>
+                    </div>
+                    <p className="text-xs font-bold">Resume Review</p>
+                    <p className="text-xs opacity-90">AI analyzed</p>
+                  </div>
+
+                  {/* LinkedIn Card */}
+                  <div className="bg-gradient-to-br from-green-600 to-green-280 rounded-lg p-3 text-white shadow-md hover:shadow-lg transition transform hover:scale-105">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg" />
+                      <span className="text-xs bg-white/30 px-2 py-1 rounded-full">✓</span>
+                    </div>
+                    <p className="text-xs font-bold">LinkedIn Review</p>
+                    <p className="text-xs opacity-90">Profile analyzed</p>
+                  </div>
+
+                  {/* Roadmap Card */}
+                  <div className="bg-gradient-to-br from-green-600 to-green-280 rounded-lg p-3 text-white shadow-md hover:shadow-lg transition transform hover:scale-105">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg" />
+                      <span className="text-xs bg-white/30 px-2 py-1 rounded-full">45%</span>
+                    </div>
+                    <p className="text-xs font-bold">Career Roadmap</p>
+                    <p className="text-xs opacity-90">In progress</p>
+                  </div>
+                </div>
+
+                {/* Recommendations */}
+                <div className="bg-white rounded-xl p-3 border border-emerald-100 shadow-sm">
+                  <p className="text-xs font-bold text-slate-900 mb-2">💡 AI Recommendation</p>
+                  <p className="text-xs text-slate-600 leading-tight">
+                    Strong match for Product Manager roles. Focus on leadership skills.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

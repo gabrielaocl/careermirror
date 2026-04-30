@@ -59,7 +59,10 @@ export default function DemoCarousel() {
           >
             {/* Icon */}
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center mb-6">
-              {cards[current].icon && <cards[current].icon className="w-6 h-6 text-white" />}
+              {(() => {
+                const IconComponent = cards[current].icon;
+                return <IconComponent className="w-6 h-6 text-white" />;
+              })()}
             </div>
 
             {/* Header */}
